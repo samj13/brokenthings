@@ -1,0 +1,54 @@
+{{ partial "header.html" . }}
+{{ $baseurl := .Site.BaseURL }}
+
+{{if .Params.searchCover}}
+  {{if or (eq (substr .Params.searchCover 0 7) "http://") (eq (substr .Params.searchCover 0 8) "https://")}}
+  <header class="main-header main-header-sm" style="background-image: linear-gradient(rgba(80, 150, 255, 0.6),rgba(80, 150, 255, 0.6)), url({{.Params.searchCover}})">
+  {{ else }}
+  <header class="main-header main-header-sm" style="background-image: linear-gradient(rgba(80, 150, 255, 0.6),rgba(80, 150, 255, 0.6)), url({{ $baseurl }}{{.Params.searchCover}})">
+  {{ end }}
+{{else if .Site.Params.searchCover}}
+  {{if or (eq (substr .Site.Params.searchCover 0 7) "http://") (eq (substr .Site.Params.searchCover 0 8) "https://")}}
+  <header class="main-header main-header-sm" style="background-image: linear-gradient(rgba(80, 150, 255, 0.6),rgba(80, 150, 255, 0.6)), url({{.Site.Params.searchCover}})">
+  {{ else }}
+  <header class="main-header main-header-sm" style="background-image: linear-gradient(rgba(80, 150, 255, 0.6),rgba(80, 150, 255, 0.6)), url({{ $baseurl }}{{.Site.Params.searchCover}})">
+  {{ end }}
+{{else}}
+  <header class="main-header main-header-sm no-cover">
+{{end}}
+    <nav class="main-nav overlay clearfix">
+      {{ if .Site.Params.logo }}
+        <a class="blog-logo" href="{{.Site.BaseURL}}"><img src="{{.Site.BaseURL}}{{ .Site.Params.logo }}" alt="Home" /></a>
+      {{end}}
+      {{ if .Site.Menus.main }}
+          <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+      {{else}}
+        {{ if .Site.Params.RSSLink}}
+          <a class="menu-button icon-feed" href="{{.Site.Params.RSSLink }}">&nbsp;&nbsp;Subscribe</a>
+        {{else}}
+          <a class="menu-button icon-feed" href="{{ .RSSLink }}">&nbsp;&nbsp;Subscribe</a>
+        {{end}}
+      {{end}}
+      {{ if .Site.Params.searchBar }}
+        {{ partial "search-bar.html" . }}
+      {{ end }}
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="page-title">{{ .Title }}</h1>
+                <h2 class="page-description">
+                {{if .Params.description}}
+                    {{.Params.description}}
+                {{end}}
+            </h2>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+  <ul id="search-results">
+</main>
+
+{{ partial "footer.html" . }}

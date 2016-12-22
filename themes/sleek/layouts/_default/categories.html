@@ -1,0 +1,83 @@
+{{ partial "header.html" . }}
+{{ $baseurl := .Site.BaseURL }}
+
+{{if .Params.categoriesCover}}
+  {{if or (eq (substr .Params.categoriesCover 0 7) "http://") (eq (substr .Params.categoriesCover 0 8) "https://")}}
+  <header class="main-header main-header-sm" style="background-image: linear-gradient(rgba(80, 150, 255, 0.6),rgba(80, 150, 255, 0.6)), url({{.Params.categoriesCover}})">
+  {{ else }}
+  <header class="main-header main-header-sm" style="background-image: linear-gradient(rgba(80, 150, 255, 0.6),rgba(80, 150, 255, 0.6)), url({{ $baseurl }}{{.Params.categoriesCover}})">
+  {{ end }}
+{{else if .Site.Params.categoriesCover}}
+  {{if or (eq (substr .Site.Params.categoriesCover 0 7) "http://") (eq (substr .Site.Params.categoriesCover 0 8) "https://")}}
+  <header class="main-header main-header-sm" style="background-image: linear-gradient(rgba(80, 150, 255, 0.6),rgba(80, 150, 255, 0.6)), url({{.Site.Params.categoriesCover}})">
+  {{ else }}
+  <header class="main-header main-header-sm" style="background-image: linear-gradient(rgba(80, 150, 255, 0.6),rgba(80, 150, 255, 0.6)), url({{ $baseurl }}{{.Site.Params.categoriesCover}})">
+  {{ end }}
+{{else}}
+  <header class="main-header main-header-sm no-cover">
+{{end}}
+    <nav class="main-nav overlay clearfix">
+      {{ if .Site.Params.logo }}
+        <a class="blog-logo" href="{{.Site.BaseURL}}"><img src="{{.Site.BaseURL}}{{ .Site.Params.logo }}" alt="Home" /></a>
+      {{end}}
+      {{ if .Site.Menus.main }}
+          <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+      {{else}}
+        {{ if .Site.Params.RSSLink}}
+          <a class="menu-button icon-feed" href="{{.Site.Params.RSSLink }}">&nbsp;&nbsp;Subscribe</a>
+        {{else}}
+          <a class="menu-button icon-feed" href="{{ .RSSLink }}">&nbsp;&nbsp;Subscribe</a>
+        {{end}}
+      {{end}}
+      {{ if .Site.Params.searchBar }}
+        {{ partial "search-bar.html" . }}
+      {{ end }}
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="page-title">{{ .Title }}</h1>
+                <h2 class="page-description">
+                {{if .Params.description}}
+                    {{.Params.description}}
+                {{end}}
+            </h2>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<main class="content" role="main">
+  <div id="all-categories">
+  {{$categories := .Site.Taxonomies.categories.TaxonomyArray}}
+  {{ range $index, $category := .Site.Taxonomies.categories.TaxonomyArray }}
+    {{if eq (mod $index 2) 0}}
+      {{if ge (add $index 1) (len $categories)}}
+        {{$category1 := index $categories $index}}
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-4 text-center"><a href="{{ "/categories/" | relLangURL }}{{ $category1.Name | urlize }}">{{ $category1.Name }}</a> - ({{ $category1.Count }})</div>
+          <div class="col-sm-4 text-center"></div>
+          <div class="col-sm-2"></div>
+        </div>
+      {{ else }}
+        {{ $category1 := index $categories $index }}    
+        {{ $category2 := index $categories (add $index 1) }}
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-4 text-center"><a href="{{ "/categories/" | relLangURL }}{{ $category1.Name | urlize }}">{{ $category1.Name }}</a> - ({{ $category1.Count }})</div>
+          <div class="col-sm-4 text-center"><a href="{{ "/categories/" | relLangURL }}{{ $category2.Name | urlize }}">{{ $category2.Name }}</a> - ({{ $category2.Count }})</div>
+          <div class="col-sm-2"></div>
+        </div>
+      {{ end }}
+    {{ end}}
+  {{ end }}
+</div>
+
+</main>
+
+
+
+{{ partial "footer.html" . }}

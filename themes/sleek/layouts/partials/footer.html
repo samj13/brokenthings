@@ -1,0 +1,17 @@
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">{{.Site.Title}}</a> {{.Site.Copyright | safeHTML}}</section>
+    </footer>
+    </div>
+    <script type="text/javascript" src="{{.Site.BaseURL}}js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{.Site.BaseURL}}js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="{{.Site.BaseURL}}js/index.js"></script>
+    {{ if eq .URL "/search/" }}
+    <script type="text/javascript" src="{{.Site.BaseURL}}js/date.format.js"></script>
+    <script type="text/javascript" src="{{.Site.BaseURL}}js/search.js"></script>
+    <script type="text/javascript" src="{{.Site.BaseURL}}js/lunr.min.js"></script>
+    {{ end }}
+    {{ if .Site.Params.customFooterPartial }}
+        {{ partial .Site.Params.customFooterPartial . }}
+    {{ end }}
+</body>
+</html>

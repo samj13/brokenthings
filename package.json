@@ -1,0 +1,6 @@
+{
+  "name": "brokenthings",
+  "scripts": {
+    "index": "hugo-lunr -i \"content/post/**\" -o public/index.json"
+  }
+}

@@ -1,0 +1,41 @@
+baseurl = "http://waronbroken.com/"
+title = "War On Broken"
+languageCode = "en-us"
+paginate = 5
+DisqusShortname = "YOUR_SHORT_NAME_HERE"
+Copyright = "All rights reserved - 2016"
+canonifyurls = true
+theme = "casper-full"
+
+[params]
+  description = "Bringing the fight to the people and organizations that think they can get away with inserting broken process and product into our world."
+  cover = "images/cartoongears.jpg"
+  categoriesCover = "images/cartoongears.jpg"
+  searchCover = "images/cartoongears.jpg"
+  aboutCover = "images/cartoongears.jpg"
+#  logo = ""
+#  googleAnalyticsUserID = "UA-79101-12"
+  searchBar = true
+
+[[menu.main]]
+  name = "Home"
+  weight = -130
+  identifier = "home"
+  url = "/"
+
+[[menu.main]]
+  name = "Categories"
+  weight = -120
+  #pre = "<i class='fa fa-folder-open'></i>"
+  identifier = "categories"
+  url = "/categories/"
+
+[[menu.main]]
+  name = "About"
+  weight = -110
+  #pre = "<i class='fa fa-info-circle'></i>"
+  identifier = "about"
+  url = "/about"
+
+[params.widgets]
+  categories = true
